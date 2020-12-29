@@ -50,7 +50,7 @@ $(document).ready(function () {
             success: function (singleRecipe) {
               $('#my-row').append(`
             <div class="col-sm-12 col-md-6 col-lg-4 mb-3">
-              <div class="card">
+              <div class="card bg-light">
                 <h5 class="card-title text-center mb-2">${
                   singleRecipe.title
                 }</h5>
