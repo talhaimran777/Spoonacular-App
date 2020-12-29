@@ -31,6 +31,14 @@ $(document).ready(function () {
 
     $query = `https://api.spoonacular.com/recipes/findByIngredients?apiKey=${$apiKey}&${$ingredientsString}&number=${$ingredientsArray.length}`;
 
-    console.log($query);
+    $.ajax({
+      type: 'GET',
+      url: `${$query}`,
+      success: function (recipes) {
+        $.each(recipes, function (i, recipe) {
+          console.log(i, recipe);
+        });
+      },
+    });
   });
 });
