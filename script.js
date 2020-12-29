@@ -35,8 +35,17 @@ $(document).ready(function () {
       type: 'GET',
       url: `${$query}`,
       success: function (recipes) {
+        $('#my-list').empty();
         $.each(recipes, function (i, recipe) {
-          console.log(i, recipe);
+          $queryForRecipe = `https://api.spoonacular.com/recipes/${recipe.id}/information?apiKey=${$apiKey}&includeNutrition=false`;
+
+          $.ajax({
+            type: 'GET',
+            url: $queryForRecipe,
+            success: function (recipe) {
+              $('#my-list').append(`<li>${recipe.summary}</li>`);
+            },
+          });
         });
       },
     });
