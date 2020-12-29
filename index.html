@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Bootstrap CSS -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+      crossorigin="anonymous"
+    />
+    <title>Spoonacular APP</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row mb-4">
+        <div class="col-10 col-sm-9 col-md-8 col-lg-7 col-xl-6 mx-auto">
+          <h1 class="text-center">Spoonacular APP</h1>
+          <p class="text-center">Enter Ingredients e.g. tomatto, pineapple</p>
+
+          <label class="mb-2" for="ingredients">Enter Ingredients: </label>
+
+          <input
+            id="ingredients"
+            class="form-control mb-3"
+            type="text"
+            placeholder="e.g. tomatto, pineapple"
+            name="ingredients"
+          />
+
+          <div class="col-md-4 mx-auto">
+            <input
+              id="search-form"
+              class="btn btn-primary w-100"
+              type="button"
+              value="Search"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <h2>Results</h2>
+      </div>
+    </div>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"
+      integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg=="
+      crossorigin="anonymous"
+    ></script>
+    <script src="./script.js"></script>
+  </body>
+</html>
