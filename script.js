@@ -1,5 +1,5 @@
 $(document).ready(function () {
-  $apiKey = '17b4568a870a4305bc4cb0ec3cfb70ba';
+  $apiKey = '7042d34f284449d6aa14eee9f2614691';
 
   function generateIngredientsString($ingredientsArray) {
     $query = 'ingredients=';
@@ -18,6 +18,9 @@ $(document).ready(function () {
 
   $('#search-form').click(function () {
     // https://api.spoonacular.com/recipes/findByIngredients?apiKey=e0ac941e876149b5ae2c81b702be0e55&ingredients=apples,+sugar&number=2
+    $('#spinner').hide();
+    $('#spinner').removeClass('d-none');
+
     $ingredientsArray = $('#ingredients')
       .val()
       .split(',')
@@ -30,50 +33,53 @@ $(document).ready(function () {
 
     $query = `https://api.spoonacular.com/recipes/findByIngredients?apiKey=${$apiKey}&${$ingredientsString}&number=${$ingredientsArray.length}`;
 
+    $('#spinner').show();
     $.ajax({
       type: 'GET',
+      cache: false,
       url: `${$query}`,
       success: function (recipes) {
         $('#my-row').empty();
+
         $.each(recipes, function (i, recipe) {
           $queryForRecipe = `https://api.spoonacular.com/recipes/${recipe.id}/information?apiKey=${$apiKey}&includeNutrition=false`;
-
           $.ajax({
             type: 'GET',
+            cache: false,
             url: $queryForRecipe,
-            success: function (recipe) {
-              //   <div class="col-md-5">
-              //       <div class="card" style="width: 18rem;">
-              //           <img src="${recipe.image}" class="card-img-top" alt="..." />
-              //           <div class="card-body">
-              //           <h5 class="card-title">${recipe.title}</h5>
-              //           <p class="card-text">
-              //               ${recipe.summary}
-              //           </p>
-              //           <a href="#" class="btn btn-primary">View</a>
-              //           </div>
-              //       </div>
-              //   </div>
+            success: function (singleRecipe) {
               $('#my-row').append(`
             <div class="col-sm-12 col-md-6 col-lg-4 mb-3">
               <div class="card">
-                <h5 class="card-title text-center mb-2">${recipe.title}</h5>
+                <h5 class="card-title text-center mb-2">${
+                  singleRecipe.title
+                }</h5>
                 <img
-                  src=${recipe.image}
+                  src=${singleRecipe.image}
                   class="card-img-top"
                   alt="..."
                   fluid
                 />
                 <div class="card-body">
+                    <h5 class = "mb-3">${recipe.usedIngredientCount} / ${
+                recipe.usedIngredientCount + recipe.missedIngredientCount
+              } Ingredients</h5>
                     <div class="scroll mb-2" style="height:200px; overflow-y: scroll;">
-                        <p style="line-height: 20px;">${recipe.summary}</p>
-                      </div>
+                        <p style="line-height: 20px;">${
+                          singleRecipe.summary
+                        }</p>
+                    </div>
     
-                      <button class="btn btn-primary">View</button>
+                    <button class="btn btn-primary">View</button>
                 </div>
               </div>
             </div> 
               `);
+            },
+
+            complete: function () {
+              $('#spinner').hide();
+              $('#spinner').addClass('d-none');
             },
           });
         });
